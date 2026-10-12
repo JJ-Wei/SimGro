@@ -2,7 +2,71 @@
 
 <div align="center">
 
-**Paper link and complete author information will be added upon publication.**
+**📖 Paper link will be added upon publication.**
+
+Yuting Zheng<sup>1,2,3,&dagger;</sup> ·
+Jiajie Wei<sup>4,&dagger;</sup> ·
+Xian Lin<sup>5,&dagger;</sup> ·
+Lin Teng<sup>6,&dagger;</sup> ·
+Xiaofei Yue<sup>7,&dagger;</sup> ·
+Huasheng Mao<sup>4</sup> ·
+Qinyue Luo<sup>1,2,3</sup> ·
+Yimeng He<sup>1,2,3</sup> ·
+Yukun Cao<sup>1,2,3</sup> ·
+Leqing Chen<sup>1,2,3</sup> ·
+Shiqi Li<sup>1,2,3</sup> ·
+Libo Shen<sup>8</sup> ·
+Mengxue Gao<sup>1,2,3</sup> ·
+Zhiyu Huang<sup>9</sup> ·
+Zeng Xiong<sup>9</sup> ·
+Meiyun Wang<sup>6</sup> ·
+Haonan Gong<sup>10</sup> ·
+Xiaocui Liu<sup>1,2,3</sup> ·
+Jianbo Gao<sup>7</sup> ·
+Jingrui Xu<sup>4</sup> ·
+Xin Yang<sup>4</sup> ·
+Jun Fan<sup>11,*</sup> ·
+Yu Zhang<sup>12,*</sup> ·
+Xiaoyu Han<sup>1,2,3,*</sup> ·
+Heshui Shi<sup>1,2,3,*</sup> ·
+Zengqiang Yan<sup>4,*</sup>
+
+<br>
+
+<sup>1</sup>Department of Radiology, Union Hospital, Tongji Medical College,
+Huazhong University of Science and Technology, Wuhan 430022, China.<br>
+<sup>2</sup>Hubei Provincial Clinical Research Center for Precision Radiology &
+Interventional Medicine, Wuhan 430022, China.<br>
+<sup>3</sup>Hubei Key Laboratory of Molecular Imaging, Wuhan 430022, China.<br>
+<sup>4</sup>School of Electronic Information and Communications, Huazhong
+University of Science and Technology, Wuhan 430074, China.<br>
+<sup>5</sup>Department of Ophthalmology, Yong Loo Lin School of Medicine,
+National University of Singapore, Singapore.<br>
+<sup>6</sup>Henan Provincial People's Hospital & People's Hospital of Zhengzhou
+University, Zhengzhou 450003, China.<br>
+<sup>7</sup>Department of Radiology, The First Affiliated Hospital of Zhengzhou
+University, Zhengzhou 450052, China.<br>
+<sup>8</sup>Xiangyang Hospital of Traditional Chinese Medicine (Xiangyang
+Institute of Traditional Chinese Medicine), Xiangyang 441001, China.<br>
+<sup>9</sup>Department of Radiology, Xiangya Hospital, Central South University,
+Changsha 410008, China.<br>
+<sup>10</sup>Department of Medical Imaging, Nanchang Hongdu Hospital of
+Traditional Chinese Medicine, Nanchang 330008, China.<br>
+<sup>11</sup>Department of Pathology, Union Hospital, Tongji Medical College,
+Huazhong University of Science and Technology, Wuhan 430022, China.<br>
+<sup>12</sup>Shanghai Chest Hospital, Shanghai Jiao Tong University School of
+Medicine, Shanghai, China.
+
+<br>
+
+<sup>*</sup>Corresponding authors:
+[Jun Fan](mailto:fanjun0915@sina.com),
+[Yu Zhang](mailto:zybz77@163.com),
+[Xiaoyu Han](mailto:xiaoyuhan1123@163.com),
+[Heshui Shi](mailto:heshuishi@hust.edu.cn), and
+[Zengqiang Yan](mailto:z_yan@hust.edu.cn).<br>
+<sup>&dagger;</sup>These authors contributed equally: Yuting Zheng, Jiajie Wei,
+Xian Lin, Lin Teng, and Xiaofei Yue.
 
 </div>
 
