@@ -206,3 +206,7 @@ This codebase builds on the following open-source projects:
 
 We thank the developers and contributors of these projects.
 
+## License
+
+This project is released under the [MIT License](LICENSE).
+
