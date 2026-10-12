@@ -97,22 +97,11 @@ conda activate simgro
 Install a PyTorch build compatible with your CUDA environment by following the
 [official PyTorch installation guide](https://pytorch.org/get-started/locally/).
 
-### 3. Install the remaining dependencies
+### 3. Install Python dependencies
 
 ```bash
-pip install numpy scipy scikit-learn tqdm tensorboard einops \
-    dynamic-network-architectures torchvision opencv-python
+pip install -r requirements.txt
 ```
-
-The main dependencies are:
-
-- PyTorch and TorchVision
-- NumPy and SciPy
-- scikit-learn
-- TensorBoard
-- einops
-- dynamic-network-architectures
-- OpenCV
 
 ## 📊 Data Preparation
 

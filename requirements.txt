@@ -1,0 +1,9 @@
+numpy
+scipy
+scikit-learn
+tqdm
+tensorboard
+einops
+dynamic-network-architectures
+torchvision
+opencv-python
