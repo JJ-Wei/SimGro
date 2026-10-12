@@ -1,0 +1,68 @@
+# Clinical and local data
+data/
+*.dcm
+*.nii
+*.nii.gz
+*.npy
+*.npz
+*.h5
+*.hdf5
+
+# Model weights and serialized artifacts
+*.pth
+*.pt
+*.ckpt
+*.pkl
+*.pickle
+
+# Training and evaluation outputs
+result/
+results/
+checkpoints/
+tensorboard/
+runs/
+logs/
+*.csv
+*.xlsx
+*.xls
+
+# Python caches and environments
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+env/
+
+# Packaging artifacts
+build/
+dist/
+*.egg-info/
+
+# Notebook and editor files
+.ipynb_checkpoints/
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Operating-system files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Local secrets and configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Local backups
+*.bak
+*~
