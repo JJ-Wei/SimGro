@@ -77,7 +77,7 @@ Xian Lin, Lin Teng, and Xiaofei Yue.
 **Our approach.** SimGro is a case-prototype learning framework that enables case-based reasoning for pathological stratification by comparing CT phenotypes with real case-anchored prototypes rather than relying on direct image-to-label classification, returning matched cases as inspectable evidence.
 
 <p align="center">
-  <img src="SimGro.png"
+  <img src="assets/SimGro.png"
        alt="SimGro architecture and training strategy" width="100%" />
 </p>
 
