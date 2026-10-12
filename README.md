@@ -6,7 +6,7 @@
 
 Yuting Zheng<sup>1,2,3,&dagger;</sup> ·
 [Jiajie Wei](https://github.com/JJ-Wei)<sup>4,&dagger;</sup> ·
-Xian Lin<sup>5,&dagger;</sup> ·
+[Xian Lin](https://github.com/xianlin7)<sup>5,&dagger;</sup> ·
 Lin Teng<sup>6,&dagger;</sup> ·
 Xiaofei Yue<sup>7,&dagger;</sup> ·
 Huasheng Mao<sup>4</sup> ·
