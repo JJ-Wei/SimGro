@@ -72,53 +72,14 @@ Xian Lin, Lin Teng, and Xiaofei Yue.
 
 ## 🚀 Overview
 
-**Clinical problem.** Preoperative pathological stratification of lung
-adenocarcinoma spectrum nodules is challenging because adjacent pathological
-subtypes may share highly similar radiological appearances while exhibiting
-different levels of invasiveness.
+**Clinical problem.** Fine-grained preoperative pathological stratification of lung adenocarcinoma from computed tomography is limited by overlapping imaging appearances and pathology-defined categories.
 
-**Our approach.** SimGro is an evidence-linked case-prototype learning framework
-for five-class pulmonary nodule classification. It learns a compact bank of
-class-specific prototypes in a normalized feature space and links each prototype
-to a representative real case. This design provides both a classification result
-and case-level reference evidence for interpreting the model decision.
+**Our approach.** SimGro is a case-prototype learning framework that enables case-based reasoning for pathological stratification by comparing CT phenotypes with real case-anchored prototypes rather than relying on direct image-to-label classification, returning matched cases as inspectable evidence.
 
 <p align="center">
   <img src="SimGro.png"
        alt="SimGro architecture and training strategy" width="100%" />
 </p>
-
-**Learning strategy.** During training, SimGro:
-
-- extracts normalized 3D image representations from cropped CT volumes;
-- assigns samples to class-specific prototypes with balanced Sinkhorn assignment;
-- optimizes cross-entropy, ordinal EMD, prototype separation, and prototype
-  compactness objectives;
-- periodically re-anchors each prototype to a representative real training case;
-- stores the prototype-to-case mapping in the model checkpoint.
-
-The current implementation supports five-fold data splits and five ordered
-pathological classes.
-
-## 🗂️ Repository Structure
-
-```text
-SimGro/
-├── models/
-│   ├── models.py
-│   └── SimGro/
-│       ├── img_network.py
-│       ├── multimodal_network.py
-│       └── pulmotarynetwork.py
-├── utils/
-│   ├── config.py
-│   ├── dataset.py
-│   ├── evaluation.py
-│   └── loss.py
-├── train.py
-├── test.py
-└── README.md
-```
 
 ## ⚙️ Environment Setup
 
