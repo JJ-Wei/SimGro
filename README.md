@@ -1,15 +1,37 @@
-# SimGro
+# SimGro: Evidence-linked Case-Prototype Learning for Preoperative Pathological Stratification of Lung Adenocarcinoma Spectrum Nodules
 
-SimGro is a prototype-based 3D deep-learning framework for five-class pulmonary
-nodule subtype classification. The model learns normalized image features and a
-small bank of class-specific templates. During training, Sinkhorn assignments
-associate samples with templates, and representative real samples periodically
-re-anchor the template bank.
+<div align="center">
 
-This repository contains the model, training pipeline, evaluation code, and data
-loading utilities. Clinical imaging data and trained checkpoints are not included.
+**Paper link and complete author information will be added upon publication.**
 
-## Repository structure
+</div>
+
+## 🚀 Overview
+
+**Clinical problem.** Preoperative pathological stratification of lung
+adenocarcinoma spectrum nodules is challenging because adjacent pathological
+subtypes may share highly similar radiological appearances while exhibiting
+different levels of invasiveness.
+
+**Our approach.** SimGro is an evidence-linked case-prototype learning framework
+for five-class pulmonary nodule classification. It learns a compact bank of
+class-specific prototypes in a normalized feature space and links each prototype
+to a representative real case. This design provides both a classification result
+and case-level reference evidence for interpreting the model decision.
+
+**Learning strategy.** During training, SimGro:
+
+- extracts normalized 3D image representations from cropped CT volumes;
+- assigns samples to class-specific prototypes with balanced Sinkhorn assignment;
+- optimizes cross-entropy, ordinal EMD, prototype separation, and prototype
+  compactness objectives;
+- periodically re-anchors each prototype to a representative real training case;
+- stores the prototype-to-case mapping in the model checkpoint.
+
+The current implementation supports five-fold data splits and five ordered
+pathological classes.
+
+## 🗂️ Repository Structure
 
 ```text
 SimGro/
@@ -25,38 +47,47 @@ SimGro/
 │   ├── evaluation.py
 │   └── loss.py
 ├── train.py
-└── test.py
+├── test.py
+└── README.md
 ```
 
-## Requirements
+## ⚙️ Environment Setup
 
-The code requires Python and the following main packages:
+### 1. Create an environment
 
-```text
-torch
-torchvision
-numpy
-scipy
-scikit-learn
-tqdm
-tensorboard
-einops
-dynamic-network-architectures
-opencv-python
+Create and activate a dedicated Python environment:
+
+```bash
+conda create -n simgro python=3.10 -y
+conda activate simgro
 ```
 
-Install them in a dedicated environment. Select the PyTorch build appropriate for
-your CUDA version from the official PyTorch installation instructions, then install
-the remaining dependencies, for example:
+### 2. Install PyTorch
+
+Install a PyTorch build compatible with your CUDA environment by following the
+[official PyTorch installation guide](https://pytorch.org/get-started/locally/).
+
+### 3. Install the remaining dependencies
 
 ```bash
 pip install numpy scipy scikit-learn tqdm tensorboard einops \
-    dynamic-network-architectures opencv-python
+    dynamic-network-architectures torchvision opencv-python
 ```
 
-## Data layout
+The main dependencies are:
 
-By default, `utils/config.py` expects data under `./data/`:
+- PyTorch and TorchVision
+- NumPy and SciPy
+- scikit-learn
+- TensorBoard
+- einops
+- dynamic-network-architectures
+- OpenCV
+
+## 📊 Data Preparation
+
+Clinical imaging data are not distributed with this repository. By default,
+`utils/config.py` expects the following structure under `./data/`:
 
 ```text
 data/
@@ -68,46 +99,46 @@ data/
 └── pulmonary_data_dict.json
 ```
 
-`splits.json` should contain a list of cross-validation folds. Each fold is a
-dictionary with `train`, `val`, and `test` sample-ID lists.
+`splits.json` should contain a list of cross-validation folds. Each fold should
+provide `train`, `val`, and `test` sample-ID lists:
 
-`pulmonary_data_dict.json` should map each sample ID to its metadata. The current
-loader uses at least these fields:
+```json
+[
+  {
+    "train": ["anonymous_case_001"],
+    "val": ["anonymous_case_002"],
+    "test": ["anonymous_case_003"]
+  }
+]
+```
+
+`pulmonary_data_dict.json` maps each anonymous sample ID to its CT volume and
+one-based pathological label:
 
 ```json
 {
-  "anonymous_sample_id": {
-    "current_ct_name": "anonymous_scan_id",
+  "anonymous_case_001": {
+    "current_ct_name": "anonymous_scan_001",
     "nodule_class": 1
   }
 }
 ```
 
-Class labels in the metadata are expected to be one-based (`1` to `5`) and are
-converted internally to zero-based labels.
+The data loader converts labels from `1–5` to zero-based labels `0–4`.
 
-> Do not commit clinical data or identifiable sample metadata. Use only data for
-> which you have appropriate ethical approval and distribution rights.
+> Do not commit clinical data or identifiable metadata. Use only appropriately
+> de-identified data for which ethical approval and data-use permission have been
+> obtained.
 
-## Configuration
+## 📈 Training
 
-Edit `utils/config.py` to set the data path, batch size, learning rate, number of
-epochs, image size, device, and model dimensions. The default model expects
-single-channel volumes cropped to `48 × 48 × 48` voxels.
-
-The training script sets deterministic random seeds. `CUDA_VISIBLE_DEVICES` is
-currently configured near the top of `train.py`; adjust it for your system if
-needed.
-
-## Training
-
-Run a single cross-validation fold with:
+Configure paths and hyperparameters in `utils/config.py`, then train one fold:
 
 ```bash
 python train.py --fold 0
 ```
 
-Useful options include:
+A representative command is:
 
 ```bash
 python train.py \
@@ -122,39 +153,84 @@ python train.py \
     --tau 0.1
 ```
 
-Supported scheduler names are `None`, `CosineAnnealing`, `ReduceLROnPlateau`, and
-`Poly`.
+Available learning-rate schedulers are:
 
-By default, checkpoints are written below `result/SimGro/`, and TensorBoard logs
-are written below `tensorboard/`.
+- `None`
+- `CosineAnnealing`
+- `ReduceLROnPlateau`
+- `Poly`
 
-Start TensorBoard with:
+By default, model checkpoints are saved under `result/SimGro/`, and TensorBoard
+logs are written under `tensorboard/`.
+
+Launch TensorBoard with:
 
 ```bash
 tensorboard --logdir tensorboard
 ```
 
-## Evaluation
+## 📋 Evaluation
 
-Evaluate a checkpoint with:
+Evaluate a trained checkpoint on the corresponding test fold:
 
 ```bash
-python test.py --fold 0 --checkpoint result/SimGro/<checkpoint>.pth
+python test.py \
+    --fold 0 \
+    --checkpoint result/SimGro/<checkpoint>.pth
 ```
 
-The test script prints the final macro accuracy, per-class accuracy, macro F1,
-precision, recall, F1, specificity, and mean absolute error. It does not generate
-plots or prediction files.
+The evaluation script prints:
 
-Only load checkpoints from trusted sources. PyTorch checkpoint files may contain
-serialized data that is unsafe when obtained from an untrusted party.
+- macro accuracy;
+- per-class accuracy;
+- macro F1 score;
+- accuracy, precision, recall, F1, and specificity;
+- mean absolute error.
 
-## Reproducibility notes
+The streamlined evaluation pipeline does not generate prediction tables, plots,
+or additional analysis files.
+
+Only load checkpoints obtained from trusted sources. PyTorch checkpoint files may
+contain serialized content that is unsafe when supplied by an untrusted party.
+
+## 🔁 Reproducibility
 
 - Keep the fold index consistent between training and evaluation.
-- Record the package versions, CUDA version, and GPU model used for each run.
-- Do not change the class order between metadata preparation, training, and testing.
-- Checkpoints contain both the model state and the current template-to-sample map.
+- Keep the pathological class order consistent during data preparation.
+- Record Python, PyTorch, CUDA, and GPU versions for each experiment.
+- Use the same preprocessing and spatial crop size for all cohorts.
+- The default input is a single-channel `48 × 48 × 48` CT volume.
+- Checkpoints contain the model state and the prototype-to-case mapping.
+
+## Citation
+
+If you use this repository, please cite:
+
+> **Evidence-linked case-prototype learning for preoperative pathological
+> stratification of lung adenocarcinoma spectrum nodules.**
+
+The final paper link and BibTeX metadata will be added upon publication.
+
+## AI Contributor
+
+This repository was developed with assistance from
+[`@codex`](https://github.com/codex), OpenAI's coding agent.
+
+<p>
+  <a href="https://github.com/codex">
+    <img src="https://github.com/codex.png" width="80" alt="Codex avatar" />
+  </a>
+</p>
+
+## Acknowledgements
+
+This codebase builds on the following open-source projects:
+
+- [PyTorch](https://github.com/pytorch/pytorch)
+- [dynamic-network-architectures](https://github.com/MIC-DKFZ/dynamic-network-architectures)
+- [einops](https://github.com/arogozhnikov/einops)
+
+We thank the developers and contributors of these projects.
 
 ## License
 
