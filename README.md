@@ -83,6 +83,11 @@ class-specific prototypes in a normalized feature space and links each prototype
 to a representative real case. This design provides both a classification result
 and case-level reference evidence for interpreting the model decision.
 
+<p align="center">
+  <img src="SimGro.png"
+       alt="SimGro architecture and training strategy" width="100%" />
+</p>
+
 **Learning strategy.** During training, SimGro:
 
 - extracts normalized 3D image representations from cropped CT volumes;

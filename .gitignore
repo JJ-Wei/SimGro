@@ -66,3 +66,7 @@ desktop.ini
 # Local backups
 *.bak
 *~
+
+# Superseded local figure sources
+assets/simgro_architecture_and_training_strategy.png
+simgro_architecture_and_training_strategy.pdf
