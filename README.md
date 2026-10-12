@@ -145,10 +145,6 @@ one-based pathological label:
 
 The data loader converts labels from `1–5` to zero-based labels `0–4`.
 
-> Do not commit clinical data or identifiable metadata. Use only appropriately
-> de-identified data for which ethical approval and data-use permission have been
-> obtained.
-
 ## 📈 Training
 
 Configure paths and hyperparameters in `utils/config.py`, then train one fold:
@@ -172,22 +168,6 @@ python train.py \
     --tau 0.1
 ```
 
-Available learning-rate schedulers are:
-
-- `None`
-- `CosineAnnealing`
-- `ReduceLROnPlateau`
-- `Poly`
-
-By default, model checkpoints are saved under `result/SimGro/`, and TensorBoard
-logs are written under `tensorboard/`.
-
-Launch TensorBoard with:
-
-```bash
-tensorboard --logdir tensorboard
-```
-
 ## 📋 Evaluation
 
 Evaluate a trained checkpoint on the corresponding test fold:
@@ -197,29 +177,6 @@ python test.py \
     --fold 0 \
     --checkpoint result/SimGro/<checkpoint>.pth
 ```
-
-The evaluation script prints:
-
-- macro accuracy;
-- per-class accuracy;
-- macro F1 score;
-- accuracy, precision, recall, F1, and specificity;
-- mean absolute error.
-
-The streamlined evaluation pipeline does not generate prediction tables, plots,
-or additional analysis files.
-
-Only load checkpoints obtained from trusted sources. PyTorch checkpoint files may
-contain serialized content that is unsafe when supplied by an untrusted party.
-
-## 🔁 Reproducibility
-
-- Keep the fold index consistent between training and evaluation.
-- Keep the pathological class order consistent during data preparation.
-- Record Python, PyTorch, CUDA, and GPU versions for each experiment.
-- Use the same preprocessing and spatial crop size for all cohorts.
-- The default input is a single-channel `48 × 48 × 48` CT volume.
-- Checkpoints contain the model state and the prototype-to-case mapping.
 
 ## Citation
 
@@ -246,13 +203,6 @@ This repository was developed with assistance from
 This codebase builds on the following open-source projects:
 
 - [PyTorch](https://github.com/pytorch/pytorch)
-- [dynamic-network-architectures](https://github.com/MIC-DKFZ/dynamic-network-architectures)
-- [einops](https://github.com/arogozhnikov/einops)
 
 We thank the developers and contributors of these projects.
 
-## License
-
-No software license has been selected for this repository yet. Add an appropriate
-license before permitting reuse or redistribution, and verify the licenses and
-provenance of all incorporated code.
