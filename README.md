@@ -78,10 +78,7 @@ loader uses at least these fields:
 {
   "anonymous_sample_id": {
     "current_ct_name": "anonymous_scan_id",
-    "nodule_class": 1,
-    "current_ct_info": {
-      "size_long": 0.0
-    }
+    "nodule_class": 1
   }
 }
 ```

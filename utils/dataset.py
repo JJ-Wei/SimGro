@@ -28,19 +28,14 @@ def get_nodule_locations(mask_array):
     else:
         min_z, min_y, min_x = np.min(nonzero_coords, axis=0)
         max_z, max_y, max_x = np.max(nonzero_coords, axis=0)     
-    min_coords = (min_z, min_y, min_x)
-    max_coords = (max_z, max_y, max_x)
-
     center_z = (min_z + max_z) // 2
     center_y = (min_y + max_y) // 2
     center_x = (min_x + max_x) // 2
-    center = (center_z, center_y, center_x)
-    return center, min_coords, max_coords
+    return center_z, center_y, center_x
 
 
-def crop_img_to_nodule(img, mask, target_size, record):
-    center, min_coords, max_coords = get_nodule_locations(np.array(mask))
-    z, y, x = center
+def crop_img_to_nodule(img, mask, target_size):
+    z, y, x = get_nodule_locations(np.array(mask))
     half_size = [target_size[0] // 2, target_size[1] // 2, target_size[2] // 2]
     if target_size[0] < img.shape[0] or target_size[1] < img.shape[1] or target_size[2] < img.shape[2]:
         z_start = max(0, z - half_size[0])
@@ -58,9 +53,9 @@ def crop_img_to_nodule(img, mask, target_size, record):
 
         img_crop = img[z_start:z_end, y_start:y_end, x_start:x_end]
         mask_crop = mask[z_start:z_end, y_start:y_end, x_start:x_end]
-        return img_crop, mask_crop, record
+        return img_crop, mask_crop
     else:
-        return img, mask, record
+        return img, mask
 
 class JointTransform3D:
     """
@@ -470,17 +465,11 @@ class ImageToImage3D(Dataset):
         current_mask = np.load(entry['current_seg_file'])
         patient_info = entry['patient_info']
         
-        current_ct_info = patient_info.get('current_ct_info', {})
-        size_long_val = current_ct_info.get('size_long', -1.0) 
-        size_long_tensor = torch.tensor(size_long_val, dtype=torch.float32)
-
-        current_properties = [0] 
-
         if self.joint_transform:
             current_image, current_mask = self.joint_transform(current_image, current_mask)
 
-        current_image, current_mask, current_properties = crop_img_to_nodule(
-            current_image, current_mask, self.img_size, current_properties
+        current_image, current_mask = crop_img_to_nodule(
+            current_image, current_mask, self.img_size
         )
 
         current_mask[current_mask > 0] = 1
@@ -493,8 +482,6 @@ class ImageToImage3D(Dataset):
         return {
             'current_data': current_image.unsqueeze(0), 
             'current_seg': current_mask.unsqueeze(0), 
-            'current_properties': current_properties,
             'keys': id_,
-            'nodule_class': nodule_class,
-            'size_long': size_long_tensor
+            'nodule_class': nodule_class
         }
